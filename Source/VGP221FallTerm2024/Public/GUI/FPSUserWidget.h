@@ -7,6 +7,7 @@
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
+#include "GUI/ButtonWidget.h"
 #include "FPSUserWidget.generated.h"
 
 /**
@@ -28,6 +29,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* ButtonContainer;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UButtonWidget> ButtonWidgetPrefab;
 
 	UFUNCTION()
 	void SetHealthBar(float percentage);

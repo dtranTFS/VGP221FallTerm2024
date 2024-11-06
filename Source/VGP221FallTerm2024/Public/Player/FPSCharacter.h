@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Projectile/FPSProjectile.h"
 #include "Kismet/GameplayStatics.h"
+#include "HUD/FPSHUD.h"
 #include "FPSCharacter.generated.h"
 
 UCLASS()
@@ -56,5 +57,13 @@ public:
 
 	UFUNCTION()
 	void Fire();
+
+	UFUNCTION()
+	void Damage(float damageAmt);
+
+private:
+	// Temp Health Code: Try making the health component from last term
+	float Health = -1;
+	const float MaxHealth = 100;
 
 };

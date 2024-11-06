@@ -33,7 +33,8 @@ AFPSCharacter::AFPSCharacter()
 void AFPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	Health = MaxHealth;
 }
 
 // Called every frame
@@ -98,7 +99,7 @@ void AFPSCharacter::Fire()
 	FRotator CameraRotation;
 	GetActorEyesViewPoint(CameraLocation, CameraRotation);
 
-	//MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
+	MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
 
 	FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
 
@@ -121,5 +122,18 @@ void AFPSCharacter::Fire()
 	FVector LaunchDirection = MuzzleRotation.Vector();
 	Projectile->FireInDirection(LaunchDirection);
 
+	Damage(10);
+}
+
+void AFPSCharacter::Damage(float damageAmt)
+{
+	// Minus Health from UI
+	AFPSHUD* HUD = UGameplayStatics::GetPlayerController(this, 0)->GetHUD<AFPSHUD>();
+	if (!HUD) return;
+
+	Health -= damageAmt;
+	float HealthPercent = Health / MaxHealth;
+
+	HUD->gameWidgetContainer->SetHealthBar(HealthPercent);
 }
 
